@@ -117,26 +117,11 @@ LINUX_X86_64_CHECKSUM=$checksum
 
 echo "Updating checksums in formula..."
 
-awk -v macos_arm="$MACOS_ARM64_CHECKSUM" -v macos_x86="$MACOS_X86_64_CHECKSUM" \
-    -v linux_arm="$LINUX_ARM64_CHECKSUM" -v linux_x86="$LINUX_X86_64_CHECKSUM" '
-/^  on_macos do$/ { in_macos = 1 }
-/^  on_linux do$/ { in_macos = 0; in_linux = 1 }
-/^  end$/ { in_macos = 0; in_linux = 0; arm_section = 0 }
-/if Hardware::CPU.arm\?/ { arm_section = 1 }
-/else/ { arm_section = 0 }
-/sha256/ {
-    if (in_macos && arm_section) {
-        gsub(/sha256 "[^"]*"/, "sha256 \"" macos_arm "\"")
-    } else if (in_macos && !arm_section) {
-        gsub(/sha256 "[^"]*"/, "sha256 \"" macos_x86 "\"")
-    } else if (in_linux && arm_section) {
-        gsub(/sha256 "[^"]*"/, "sha256 \"" linux_arm "\"")
-    } else if (in_linux && !arm_section) {
-        gsub(/sha256 "[^"]*"/, "sha256 \"" linux_x86 "\"")
-    }
-}
-{ print }
-' "$FORMULA_FILE" > "$FORMULA_FILE.tmp" && mv "$FORMULA_FILE.tmp" "$FORMULA_FILE"
+# Simple replacements using checksum variables
+sed -i.bak "s/MACOS_ARM64_SHA256 = \"[^\"]*\"/MACOS_ARM64_SHA256 = \"$MACOS_ARM64_CHECKSUM\"/" "$FORMULA_FILE"
+sed -i.bak "s/MACOS_X86_64_SHA256 = \"[^\"]*\"/MACOS_X86_64_SHA256 = \"$MACOS_X86_64_CHECKSUM\"/" "$FORMULA_FILE"
+sed -i.bak "s/LINUX_ARM64_SHA256 = \"[^\"]*\"/LINUX_ARM64_SHA256 = \"$LINUX_ARM64_CHECKSUM\"/" "$FORMULA_FILE"
+sed -i.bak "s/LINUX_X86_64_SHA256 = \"[^\"]*\"/LINUX_X86_64_SHA256 = \"$LINUX_X86_64_CHECKSUM\"/" "$FORMULA_FILE"
 
 echo "Updated checksums in $FORMULA_FILE"
 
