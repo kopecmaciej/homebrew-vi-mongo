@@ -1,30 +1,30 @@
 class ViMongo < Formula
   desc "Terminal User Interface for MongoDB"
   homepage "https://github.com/kopecmaciej/vi-mongo"
-  version "v0.1.35"
+  version "v0.2.0"
 
   # Checksums for different platforms
-  MACOS_ARM64_SHA256 = "1ff64b3a3b795442ef2f84102a1c7a614c22e4384f306b314dcaaee890f8ee27"
-  MACOS_X86_64_SHA256 = "d4c2e1dc8289832264b36bb91a5949e823ea166e6ec7bbb8930dbd551a43ac0d"
-  LINUX_ARM64_SHA256 = "46bc461870b8368e8e022731036971043beac97c0b26c0e279ae13af55777c4a"
-  LINUX_X86_64_SHA256 = "d931f2bd970dfc107add0423a9064f835f897dfc7c23aa2304776f5792d4b091"
+  MACOS_ARM64_SHA256 = "2676b2c4473b998b9e39c080e5c02deaf7b4c5fe5fc9a013e9afea4e938c8b53"
+  MACOS_X86_64_SHA256 = "2abda2b697fe850df1284f8aefa4b5e4e921e8e6816f00b6d7bf1090d6d8bffb"
+  LINUX_ARM64_SHA256 = "9c56039cbbe8003a3d9e2b7c9dca1caee8daeb4c0249833bdcfaf9179d8d5faa"
+  LINUX_X86_64_SHA256 = "c99cd93667076c7829fe37951c20155fa9dc360a07fea99f51f52557bc0f7396"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.1.35/vi-mongo_Darwin_arm64.tar.gz"
+      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.2.0/vi-mongo_Darwin_arm64.tar.gz"
       sha256 MACOS_ARM64_SHA256
     else
-      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.1.35/vi-mongo_Darwin_x86_64.tar.gz"
+      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.2.0/vi-mongo_Darwin_x86_64.tar.gz"
       sha256 MACOS_X86_64_SHA256
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.1.35/vi-mongo_Linux_arm64.tar.gz"
+      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.2.0/vi-mongo_Linux_arm64.tar.gz"
       sha256 LINUX_ARM64_SHA256
     else
-      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.1.35/vi-mongo_Linux_x86_64.tar.gz"
+      url "https://github.com/kopecmaciej/vi-mongo/releases/download/v0.2.0/vi-mongo_Linux_x86_64.tar.gz"
       sha256 LINUX_X86_64_SHA256
     end
   end
